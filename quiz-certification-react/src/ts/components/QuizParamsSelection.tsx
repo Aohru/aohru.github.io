@@ -57,10 +57,19 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
     incorrect_answers: string[];
   }): Question {
     return {
-      questionName: result.question,
-      answers: [...result.incorrect_answers, result.correct_answer].sort(() => Math.random() - 0.5),
-      correctAnswer: result.correct_answer,
+      questionName: decode(result.question) ?? "",
+      answers: [
+        ...result.incorrect_answers.map((incorrect) => decode(incorrect) ?? ""),
+        decode(result.correct_answer) ?? "",
+      ].sort(() => Math.random() - 0.5),
+      correctAnswer: decode(result.correct_answer) ?? "",
     };
+  }
+
+  function decode(str: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(str, "text/html");
+    return doc.body.textContent;
   }
 
   return (
