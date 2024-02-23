@@ -1,0 +1,10 @@
+.question-btn {
+    color: green;
+    border-color: green;
+    background-color: white;
+  }
+  
+  .question-btn:hover {
+    background-color: green;
+    color: white;
+}
