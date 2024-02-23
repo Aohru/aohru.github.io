@@ -1,13 +1,17 @@
-import React from "react";
-import { ChoixQuiz } from "../components/ChoixQuiz";
-import { QuestionReponsesQuiz } from "../components/QuetionReponsesQuiz";
+import React, { useState } from "react";
+import { QuizParamsSelection } from "../components/QuizParamsSelection";
+import { QuizPlay } from "../components/QuizPlay";
+import { Question } from "../models/QuestionReponses";
 
 const QuizMakerPage: React.FC = () => {
+  const [questions, setQuestions] = useState<Question[]>();
+  const [answers, setAnswers] = useState<string[]>([]);
+
   return (
     <div>
-      <h1>QUIZ MAKER</h1>
-      <ChoixQuiz />
-      <QuestionReponsesQuiz />
+      <h1 style={{ marginBottom: "1em" }}>QUIZ MAKER</h1>
+      <QuizParamsSelection setQuestions={setQuestions} setAnswers={setAnswers} />
+      <QuizPlay questions={questions} answers={answers} setAnswers={setAnswers}/>
     </div>
   );
 };

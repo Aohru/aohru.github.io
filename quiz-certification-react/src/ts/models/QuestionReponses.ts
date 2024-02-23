@@ -6,3 +6,9 @@ export interface QuestionReponses {
     correct_answer: string;
     incorrect_answers: string[];
 }
+
+export interface Question {
+    questionName: string;
+    answers: string[];
+    correctAnswer: string;
+  }

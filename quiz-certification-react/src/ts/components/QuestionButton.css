@@ -1,10 +1,15 @@
-.question-btn {
+.answer-btn {
     color: green;
     border-color: green;
     background-color: white;
   }
   
-  .question-btn:hover {
+  .answer-btn:hover {
+    background-color: green;
+    color: white;
+}
+
+.answer-clicked {
     background-color: green;
     color: white;
 }
