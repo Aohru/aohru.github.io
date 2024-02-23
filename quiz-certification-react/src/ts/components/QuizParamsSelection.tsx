@@ -40,7 +40,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
             return getQuestion(result);
           })
         );
-        setAnswers(reponse.results.map((result) => ""));
+        setAnswers(reponse.results.map(() => ""));
       })
       .catch((error) => {
         console.log(error);
@@ -58,7 +58,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
   }): Question {
     return {
       questionName: result.question,
-      answers: [...result.incorrect_answers, result.correct_answer],
+      answers: [...result.incorrect_answers, result.correct_answer].sort(() => Math.random() - 0.5),
       correctAnswer: result.correct_answer,
     };
   }
@@ -75,7 +75,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
         <button
           id="createBtn"
           onClick={handleClickOnCreate}
-          disabled={!difficultySelected}
+          disabled={!difficultySelected || !categorySelected}
         >
           Create
         </button>

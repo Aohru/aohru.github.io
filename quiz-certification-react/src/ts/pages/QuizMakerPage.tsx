@@ -5,7 +5,7 @@ import { Question } from "../models/QuestionReponses";
 
 const QuizMakerPage: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>();
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[]>([""]);
 
   return (
     <div>
