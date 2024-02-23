@@ -3,24 +3,11 @@ import { fetchData } from "../services/FetchService";
 import { SelectCategory } from "./SelectCategory";
 import { SelectDifficulty } from "./SelectDifficulty";
 import { Question } from "../models/QuestionReponses";
+import { ReponseQuestionsApiType, ResultQuestionApiType } from "../models/ApiOpentdb";
 
 interface QuizParamsSelectionProps {
   setQuestions: (questions: Question[]) => void;
   setAnswers: (answers: string[]) => void;
-}
-
-interface ReponseQuestionsApiType {
-  response_code: number;
-  results: [
-    {
-      type: string;
-      difficulty: string;
-      category: string;
-      question: string;
-      correct_answer: string;
-      incorrect_answers: string[];
-    }
-  ];
 }
 
 export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
@@ -30,7 +17,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
   const [categorySelected, setCategorySelected] = useState<string>();
   const { setQuestions, setAnswers } = props;
 
-  const handleClickOnCreate = () => {
+  const handleClickOnCreateQuiz = () => {
     fetchData(
       `https://opentdb.com/api.php?amount=5&category=${categorySelected}&difficulty=${difficultySelected}&type=multiple`
     )
@@ -42,34 +29,23 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
         );
         setAnswers(reponse.results.map(() => ""));
       })
-      .catch((error) => {
-        console.log(error);
-        /*    setErrorMessage(
-          "Les questions du Quiz n'ont pas pu être correctement générées. Merci de revenir plus tard."
-        );
-        */
-      });
   };
 
-  function getQuestion(result: {
-    question: string;
-    correct_answer: string;
-    incorrect_answers: string[];
-  }): Question {
+  function getQuestion(result: ResultQuestionApiType): Question {
     return {
-      questionName: decode(result.question) ?? "",
+      questionName: decode(result.question),
       answers: [
-        ...result.incorrect_answers.map((incorrect) => decode(incorrect) ?? ""),
-        decode(result.correct_answer) ?? "",
+        ...result.incorrect_answers.map((incorrectAnswer) => decode(incorrectAnswer)),
+        decode(result.correct_answer),
       ].sort(() => Math.random() - 0.5),
-      correctAnswer: decode(result.correct_answer) ?? "",
+      correctAnswer: decode(result.correct_answer),
     };
   }
 
-  function decode(str: string) {
+  function decode(encodedString: string) {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(str, "text/html");
-    return doc.body.textContent;
+    const document = parser.parseFromString(encodedString, "text/html");
+    return document.body.textContent ?? "";
   }
 
   return (
@@ -83,7 +59,8 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
       <div className="col-lg-2">
         <button
           id="createBtn"
-          onClick={handleClickOnCreate}
+          onClick={handleClickOnCreateQuiz}
+          style={{backgroundColor: "green", color: "white"}}
           disabled={!difficultySelected || !categorySelected}
         >
           Create

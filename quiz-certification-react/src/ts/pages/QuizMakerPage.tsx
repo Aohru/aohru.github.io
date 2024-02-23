@@ -9,7 +9,7 @@ const QuizMakerPage: React.FC = () => {
 
   return (
     <div>
-      <h1 style={{ marginBottom: "1em" }}>QUIZ MAKER</h1>
+      <h1 className="h1" style={{ marginBottom: "1em" }}>QUIZ MAKER</h1>
       <QuizParamsSelection setQuestions={setQuestions} setAnswers={setAnswers} />
       <QuizPlay questions={questions} answers={answers} setAnswers={setAnswers}/>
     </div>

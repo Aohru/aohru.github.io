@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "../services/FetchService";
 import { Category } from "../models/Category";
+import { CategoriesApiType } from "../models/ApiOpentdb";
 interface SelectCategoryProps {
   setCategorySelected: (category: string) => void;
 }
+
 export const SelectCategory: React.FC<SelectCategoryProps> = (
   props: SelectCategoryProps
 ) => {
@@ -11,9 +13,10 @@ export const SelectCategory: React.FC<SelectCategoryProps> = (
   const { setCategorySelected } = props;
 
   useEffect(() => {
-    fetchData("https://opentdb.com/api_category.php").then((response) => {
+    fetchData("https://opentdb.com/api_category.php").then((response: CategoriesApiType) => {
       setCategories([...response.trivia_categories]);
     });
+
   }, []);
 
   return (

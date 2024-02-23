@@ -4,7 +4,7 @@
     background-color: white;
 }
 
-.answer-btn:hover {
+.quiz-answer-btn:hover {
     background-color: green;
     color: white;
 }

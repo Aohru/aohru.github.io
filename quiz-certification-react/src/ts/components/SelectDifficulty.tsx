@@ -8,12 +8,6 @@ export const SelectDifficulty: React.FC<SelectDifficultyProps> = (
   const { setDifficultySelected } = props;
   const difficulties = ["easy", "medium", "hard"];
 
-  /*
-  const capitalizeFirstLetter = (difficulty: string) =>
-    difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
-
-    */
-   
   return (
     <select
       id="difficultySelect"
