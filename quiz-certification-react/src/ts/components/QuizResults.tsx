@@ -6,10 +6,14 @@ interface ResultsProps {
   answers: string[];
 }
 
-export const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
+/**
+ * @param props 
+ * @returns un composant associé aux résultats
+ */
+export const QuizResults: React.FC<ResultsProps> = (props: ResultsProps) => {
   const { answers, questions } = props;
 
-  function getScore() {
+  const getScore = () => {
     let score = 0;
     questions.map((question, index) => {
       question.correctAnswer === answers[index] && score++;
@@ -32,10 +36,6 @@ export const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
 
   return (
     <>
-      <div>
-        <h1 className="h1" style={{ marginBottom: "1em" }}>RESULTS</h1>
-      </div>
-      <div>
         {questions?.map((question, indexQuestion) => (
           <QuestionAnswersBloc
             question={question}
@@ -45,7 +45,6 @@ export const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
             isResultsPage
           />
         ))}
-      </div>
       <p className="row justify-content-md-center">
         <span
           className="col-lg-6"

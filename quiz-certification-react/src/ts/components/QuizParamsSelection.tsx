@@ -10,6 +10,11 @@ interface QuizParamsSelectionProps {
   setAnswers: (answers: string[]) => void;
 }
 
+/**
+ * Permet de choisir les paramètres du quizz
+ * @param props setter des questions et des answers
+ * @returns un composant correspondant aux paramètres et à la génération du quiz
+ */
 export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
   props: QuizParamsSelectionProps
 ) => {
@@ -31,7 +36,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
       })
   };
 
-  function getQuestion(result: ResultQuestionApiType): Question {
+  const getQuestion = (result: ResultQuestionApiType): Question => {
     return {
       questionName: decode(result.question),
       answers: [
@@ -42,7 +47,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
     };
   }
 
-  function decode(encodedString: string) {
+  const decode = (encodedString: string) => {
     const parser = new DOMParser();
     const document = parser.parseFromString(encodedString, "text/html");
     return document.body.textContent ?? "";

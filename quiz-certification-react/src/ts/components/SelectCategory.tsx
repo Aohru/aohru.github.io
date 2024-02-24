@@ -6,6 +6,11 @@ interface SelectCategoryProps {
   setCategorySelected: (category: string) => void;
 }
 
+/**
+ * 
+ * @param props le setter des catégories
+ * @returns un composant liste déroulante permettant de sélectionner une catégorie
+ */
 export const SelectCategory: React.FC<SelectCategoryProps> = (
   props: SelectCategoryProps
 ) => {
@@ -16,7 +21,6 @@ export const SelectCategory: React.FC<SelectCategoryProps> = (
     fetchData("https://opentdb.com/api_category.php").then((response: CategoriesApiType) => {
       setCategories([...response.trivia_categories]);
     });
-
   }, []);
 
   return (

@@ -10,10 +10,14 @@ interface QuestionAnswersProps {
   isResultsPage?: boolean;
 }
 
+/**
+ * 
+ * @param props 
+ * @returns un bloc contenant une question et une ligne de réponses associées
+ */
 export const QuestionAnswersBloc: React.FC<QuestionAnswersProps> = (
   props: QuestionAnswersProps
 ) => {
-  // const [selectedAnswer, setSelecAnswer] = useState<string>();
   const {
     question,
     answers,

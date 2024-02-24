@@ -8,10 +8,21 @@ interface AnswersButtonsRowProps {
   onClickOnAnswer?: (selectedAnswer: string, indexQuestion: number) => void;
 }
 
+/**
+ *
+ * @param props
+ * @returns une ligne de réponses associée à une question
+ */
 export const AnswersButtonsRow: React.FC<AnswersButtonsRowProps> = (
   props: AnswersButtonsRowProps
 ) => {
-  const { question, isResultsPage = false, answers, indexQuestion, onClickOnAnswer } = props;
+  const {
+    question,
+    isResultsPage = false,
+    answers,
+    indexQuestion,
+    onClickOnAnswer,
+  } = props;
 
   const getClassQuizPlayButton = (indexAnswer: number) => {
     return `btn quiz-answer-btn ${
@@ -25,10 +36,7 @@ export const AnswersButtonsRow: React.FC<AnswersButtonsRowProps> = (
     if (answer === question.correctAnswer) {
       return "correct-answer";
     }
-    if (answers[indexQuestion] === answer) {
-      return "incorrect-answer";
-    }
-    return "";
+    return answers[indexQuestion] === answer ? "incorrect-answer" : "";
   };
 
   return (

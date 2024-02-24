@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Question } from "../models/QuestionReponses";
 import { QuestionAnswersBloc } from "./QuestionAnswersBloc";
-import "./QuestionButton.css";
+import "./AnswerButton.css";
+import { ButtonNavigate } from "./ButtonNavigate";
 
 interface QuizPlayProps {
   questions?: Question[];
@@ -9,19 +10,19 @@ interface QuizPlayProps {
   setAnswers: (answers: string[]) => void;
 }
 
+/**
+ * Composant qui gère le jeu du quiz et la navigation vers la page des résultats
+ */
 export const QuizPlay: React.FC<QuizPlayProps> = (props: QuizPlayProps) => {
   const { questions, answers, setAnswers } = props;
   const navigate = useNavigate();
 
   const isSubmitEnabled = !answers.includes("");
 
-  console.log("render");
-
   const handleClickOnAnswer = (answer: string, index: number) => {
     setAnswers(answers.map((value, i) => (i === index ? answer : value)));
   };
   const handleClickOnSubmit = () => {
-    // const score = questions?.map((question, index) => question.correctAnswer === answers[index] ? score + 1)
     navigate("/results", { state: { answers: answers, questions: questions } });
   };
 
@@ -37,9 +38,10 @@ export const QuizPlay: React.FC<QuizPlayProps> = (props: QuizPlayProps) => {
         />
       ))}
       {isSubmitEnabled && (
-        <button className="submit-btn" onClick={handleClickOnSubmit}>
-          Submit
-        </button>
+        <ButtonNavigate
+          onClickOnButtonNavigate={handleClickOnSubmit}
+          buttonText="Submit"
+        />
       )}
     </div>
   );

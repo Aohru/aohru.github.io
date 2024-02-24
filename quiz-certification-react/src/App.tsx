@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import QuizMakerPage from "./ts/pages/QuizMakerPage";
 import { QuizResultsPage } from "./ts/pages/QuizResultsPage";

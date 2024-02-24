@@ -1,11 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Results } from "../components/Results";
+import { QuizResults } from "../components/QuizResults";
 import { Question } from "../models/QuestionReponses";
+import { ButtonNavigate } from "../components/ButtonNavigate";
+import { Title } from "../components/Title";
 
 interface QuizResultsPageState {
   questions: Question[];
   answers: string[];
 }
+
+/**
+ *
+ * @returns un composant associé à la page des résultats du quiz et à la navigation vers un nouveau quiz
+ */
 export const QuizResultsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,10 +25,12 @@ export const QuizResultsPage: React.FC = () => {
 
   return (
     <>
-      <Results answers={answers} questions={questions} />
-      <button className="submit-btn" onClick={handleClickOnCreate}>
-        Create a new quiz
-      </button>
+      <Title title="RESULTS" />
+      <QuizResults answers={answers} questions={questions} />
+      <ButtonNavigate
+        onClickOnButtonNavigate={handleClickOnCreate}
+        buttonText="Create a new quiz"
+      />
     </>
   );
 };
