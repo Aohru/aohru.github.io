@@ -1,37 +1,47 @@
 import { useNavigate } from "react-router-dom";
 import { Question } from "../models/QuestionReponses";
-import { QuestionAnswersBloc } from "./QuestionAnswersBloc";
 import "./AnswerButton.css";
 import { ButtonNavigate } from "./ButtonNavigate";
+import { QuestionAnswersBloc } from "./QuestionAnswersBloc";
 
 interface QuizPlayProps {
   questions?: Question[];
-  answers: string[];
-  setAnswers: (answers: string[]) => void;
+  selectedAnswers: string[];
+  setSelectedAnswers: (selectedAnswers: string[]) => void;
 }
 
 /**
  * Composant qui gère le jeu du quiz et la navigation vers la page des résultats
  */
 export const QuizPlay: React.FC<QuizPlayProps> = (props: QuizPlayProps) => {
-  const { questions, answers, setAnswers } = props;
+  const { questions, selectedAnswers, setSelectedAnswers } = props;
   const navigate = useNavigate();
 
-  const isSubmitEnabled = !answers.includes("");
+  const isSubmitEnabled = !selectedAnswers.includes("");
 
-  const handleClickOnAnswer = (answer: string, index: number) => {
-    setAnswers(answers.map((value, i) => (i === index ? answer : value)));
+  const handleClickOnAnswer = (
+    selectedAnswer: string,
+    indexQuestion: number
+  ) => {
+    setSelectedAnswers(
+      selectedAnswers.map((valueAnswer, indexAnswer) =>
+        indexAnswer === indexQuestion ? selectedAnswer : valueAnswer
+      )
+    );
   };
+
   const handleClickOnSubmit = () => {
-    navigate("/results", { state: { answers: answers, questions: questions } });
+    navigate("/results", {
+      state: { selectedAnswers: selectedAnswers, questions: questions },
+    });
   };
 
   return (
     <div>
       {questions?.map((question, indexQuestion) => (
         <QuestionAnswersBloc
-          question={question}
-          answers={answers}
+          currentQuestion={question}
+          selectedAnswers={selectedAnswers}
           indexQuestion={indexQuestion}
           onClickOnAnswer={handleClickOnAnswer}
           key={question.questionName}

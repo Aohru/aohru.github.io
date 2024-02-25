@@ -3,11 +3,14 @@ import { fetchData } from "../services/FetchService";
 import { SelectCategory } from "./SelectCategory";
 import { SelectDifficulty } from "./SelectDifficulty";
 import { Question } from "../models/QuestionReponses";
-import { ReponseQuestionsApiType, ResultQuestionApiType } from "../models/ApiOpentdb";
+import {
+  ReponseQuestionsApiType,
+  ResultQuestionApiType,
+} from "../models/ApiOpentdb";
 
 interface QuizParamsSelectionProps {
   setQuestions: (questions: Question[]) => void;
-  setAnswers: (answers: string[]) => void;
+  setSelectedAnswers: (selectedAnswers: string[]) => void;
 }
 
 /**
@@ -20,38 +23,39 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
 ) => {
   const [difficultySelected, setDifficultySelected] = useState<string>();
   const [categorySelected, setCategorySelected] = useState<string>();
-  const { setQuestions, setAnswers } = props;
+  const { setQuestions, setSelectedAnswers } = props;
 
   const handleClickOnCreateQuiz = () => {
     fetchData(
       `https://opentdb.com/api.php?amount=5&category=${categorySelected}&difficulty=${difficultySelected}&type=multiple`
-    )
-      .then((reponse: ReponseQuestionsApiType) => {
-        setQuestions(
-          reponse.results.map((result) => {
-            return getQuestion(result);
-          })
-        );
-        setAnswers(reponse.results.map(() => ""));
-      })
+    ).then((reponse: ReponseQuestionsApiType) => {
+      setQuestions(
+        reponse.results.map((result) => {
+          return getQuestion(result);
+        })
+      );
+      setSelectedAnswers(reponse.results.map(() => ""));
+    });
   };
 
   const getQuestion = (result: ResultQuestionApiType): Question => {
     return {
       questionName: decode(result.question),
       answers: [
-        ...result.incorrect_answers.map((incorrectAnswer) => decode(incorrectAnswer)),
+        ...result.incorrect_answers.map((incorrectAnswer) =>
+          decode(incorrectAnswer)
+        ),
         decode(result.correct_answer),
       ].sort(() => Math.random() - 0.5),
       correctAnswer: decode(result.correct_answer),
     };
-  }
+  };
 
   const decode = (encodedString: string) => {
     const parser = new DOMParser();
     const document = parser.parseFromString(encodedString, "text/html");
     return document.body.textContent ?? "";
-  }
+  };
 
   return (
     <div className="row">
@@ -65,7 +69,7 @@ export const QuizParamsSelection: React.FC<QuizParamsSelectionProps> = (
         <button
           id="createBtn"
           onClick={handleClickOnCreateQuiz}
-          style={{backgroundColor: "green", color: "white"}}
+          style={{ backgroundColor: "green", color: "white" }}
           disabled={!difficultySelected || !categorySelected}
         >
           Create

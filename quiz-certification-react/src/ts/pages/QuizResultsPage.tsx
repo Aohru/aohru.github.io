@@ -6,7 +6,7 @@ import { Title } from "../components/Title";
 
 interface QuizResultsPageState {
   questions: Question[];
-  answers: string[];
+  selectedAnswers: string[];
 }
 
 /**
@@ -17,7 +17,7 @@ export const QuizResultsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { questions, answers } = location.state as QuizResultsPageState;
+  const { questions, selectedAnswers } = location.state as QuizResultsPageState;
 
   const handleClickOnCreate = () => {
     navigate("/");
@@ -26,7 +26,7 @@ export const QuizResultsPage: React.FC = () => {
   return (
     <>
       <Title title="RESULTS" />
-      <QuizResults answers={answers} questions={questions} />
+      <QuizResults selectedAnswers={selectedAnswers} questions={questions} />
       <ButtonNavigate
         onClickOnButtonNavigate={handleClickOnCreate}
         buttonText="Create a new quiz"

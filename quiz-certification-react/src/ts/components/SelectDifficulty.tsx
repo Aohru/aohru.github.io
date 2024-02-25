@@ -3,7 +3,7 @@ interface SelectDifficultyProps {
 }
 
 /**
- * 
+ *
  * @param props le setter des difficultés
  * @returns un composant liste déroulante permettant de sélectionner une difficulté
  */
@@ -23,7 +23,9 @@ export const SelectDifficulty: React.FC<SelectDifficultyProps> = (
     >
       <option value="">Select difficulty</option>
       {difficulties.map((difficulty) => (
-        <option key={difficulty} value={difficulty}>{difficulty}</option>
+        <option key={difficulty} value={difficulty}>
+          {difficulty}
+        </option>
       ))}
     </select>
   );

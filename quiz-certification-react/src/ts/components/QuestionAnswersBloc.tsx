@@ -3,24 +3,24 @@ import { Question } from "../models/QuestionReponses";
 import { AnswersButtonsRow } from "./AnswersButtonsRow";
 
 interface QuestionAnswersProps {
-  question: Question;
-  answers: string[];
+  currentQuestion: Question;
+  selectedAnswers: string[];
   indexQuestion: number;
   onClickOnAnswer?: (selectedAnswer: string, indexQuestion: number) => void;
   isResultsPage?: boolean;
 }
 
 /**
- * 
- * @param props 
+ *
+ * @param props
  * @returns un bloc contenant une question et une ligne de réponses associées
  */
 export const QuestionAnswersBloc: React.FC<QuestionAnswersProps> = (
   props: QuestionAnswersProps
 ) => {
   const {
-    question,
-    answers,
+    currentQuestion,
+    selectedAnswers,
     indexQuestion,
     onClickOnAnswer,
     isResultsPage = false,
@@ -32,7 +32,7 @@ export const QuestionAnswersBloc: React.FC<QuestionAnswersProps> = (
         className={`col-lg-${isResultsPage ? "9" : "12"}`}
         style={{ textAlign: "left" }}
       >
-        {question.questionName}
+        {currentQuestion.questionName}
       </p>
       <div
         className="col-lg-12"
@@ -42,10 +42,10 @@ export const QuestionAnswersBloc: React.FC<QuestionAnswersProps> = (
           className={`row ${isResultsPage ? "justify-content-md-center" : ""}`}
         >
           <AnswersButtonsRow
-            question={question}
-            answers={answers}
+            currentQuestion={currentQuestion}
+            selectedAnswers={selectedAnswers}
             indexQuestion={indexQuestion}
-            key={question.questionName}
+            key={currentQuestion.questionName}
             isResultsPage={isResultsPage}
             onClickOnAnswer={onClickOnAnswer}
           />

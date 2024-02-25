@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { QuizParamsSelection } from "../components/QuizParamsSelection";
 import { QuizPlay } from "../components/QuizPlay";
-import { Question } from "../models/QuestionReponses";
 import { Title } from "../components/Title";
+import { Question } from "../models/QuestionReponses";
 
 /**
  *
@@ -10,19 +10,19 @@ import { Title } from "../components/Title";
  */
 const QuizMakerPage: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>();
-  const [answers, setAnswers] = useState<string[]>([""]);
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([""]);
 
   return (
     <div>
-      <Title title="QUIZ MAKER"/>
+      <Title title="QUIZ MAKER" />
       <QuizParamsSelection
         setQuestions={setQuestions}
-        setAnswers={setAnswers}
+        setSelectedAnswers={setSelectedAnswers}
       />
       <QuizPlay
         questions={questions}
-        answers={answers}
-        setAnswers={setAnswers}
+        selectedAnswers={selectedAnswers}
+        setSelectedAnswers={setSelectedAnswers}
       />
     </div>
   );

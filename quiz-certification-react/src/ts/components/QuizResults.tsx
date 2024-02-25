@@ -3,23 +3,23 @@ import { QuestionAnswersBloc } from "./QuestionAnswersBloc";
 
 interface ResultsProps {
   questions: Question[];
-  answers: string[];
+  selectedAnswers: string[];
 }
 
 /**
- * @param props 
+ * @param props
  * @returns un composant associé aux résultats
  */
 export const QuizResults: React.FC<ResultsProps> = (props: ResultsProps) => {
-  const { answers, questions } = props;
+  const { selectedAnswers, questions } = props;
 
   const getScore = () => {
     let score = 0;
     questions.map((question, index) => {
-      question.correctAnswer === answers[index] && score++;
+      question.correctAnswer === selectedAnswers[index] && score++;
     });
     return score;
-  }
+  };
 
   const getColorByScore = () => {
     switch (getScore()) {
@@ -36,21 +36,21 @@ export const QuizResults: React.FC<ResultsProps> = (props: ResultsProps) => {
 
   return (
     <>
-        {questions?.map((question, indexQuestion) => (
-          <QuestionAnswersBloc
-            question={question}
-            answers={answers}
-            indexQuestion={indexQuestion}
-            key={question.questionName}
-            isResultsPage
-          />
-        ))}
+      {questions?.map((question, indexQuestion) => (
+        <QuestionAnswersBloc
+          currentQuestion={question}
+          selectedAnswers={selectedAnswers}
+          indexQuestion={indexQuestion}
+          key={question.questionName}
+          isResultsPage
+        />
+      ))}
       <p className="row justify-content-md-center">
         <span
           className="col-lg-6"
           style={{ backgroundColor: getColorByScore() }}
         >
-          You scored {getScore()} out of {answers.length}
+          You scored {getScore()} out of {selectedAnswers.length}
         </span>
       </p>
     </>

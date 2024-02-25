@@ -1,9 +1,9 @@
 import { Question } from "../models/QuestionReponses";
 
 interface AnswersButtonsRowProps {
-  question: Question;
+  currentQuestion: Question;
   isResultsPage: boolean;
-  answers: string[];
+  selectedAnswers: string[];
   indexQuestion: number;
   onClickOnAnswer?: (selectedAnswer: string, indexQuestion: number) => void;
 }
@@ -17,31 +17,32 @@ export const AnswersButtonsRow: React.FC<AnswersButtonsRowProps> = (
   props: AnswersButtonsRowProps
 ) => {
   const {
-    question,
+    currentQuestion,
     isResultsPage = false,
-    answers,
+    selectedAnswers,
     indexQuestion,
     onClickOnAnswer,
   } = props;
 
-  const getClassQuizPlayButton = (indexAnswer: number) => {
+  const isAnswerChoosed = (answer: string) =>
+    selectedAnswers[indexQuestion] === answer;
+
+  const getClassQuizPlayButton = (answer: string) => {
     return `btn quiz-answer-btn ${
-      question.answers[indexAnswer] === answers[indexQuestion]
-        ? "answer-clicked"
-        : ""
+      isAnswerChoosed(answer) ? "answer-clicked" : ""
     }`;
   };
 
   const getClassResultsButton = (answer: string) => {
-    if (answer === question.correctAnswer) {
+    if (answer === currentQuestion.correctAnswer) {
       return "correct-answer";
     }
-    return answers[indexQuestion] === answer ? "incorrect-answer" : "";
+    return isAnswerChoosed(answer) ? "incorrect-answer" : "";
   };
 
   return (
     <>
-      {question.answers.map((answer, indexAnswer) => (
+      {currentQuestion.answers.map((answer) => (
         <button
           key={answer}
           type="button"
@@ -49,7 +50,7 @@ export const AnswersButtonsRow: React.FC<AnswersButtonsRowProps> = (
           className={`col-lg-2 answer-btn ${
             isResultsPage
               ? getClassResultsButton(answer)
-              : getClassQuizPlayButton(indexAnswer)
+              : getClassQuizPlayButton(answer)
           }`}
           style={{ marginLeft: "1em" }}
           onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
