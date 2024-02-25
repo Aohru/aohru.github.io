@@ -1,0 +1,30 @@
+.answer-btn {
+    color: green;
+    border-color: green;
+    background-color: white;
+}
+
+.quiz-answer-btn:hover {
+    background-color: green;
+    color: white;
+}
+
+.answer-clicked, .correct-answer {
+    background-color: green;
+    color: white;
+}
+
+.incorrect-answer {
+    background-color: red;
+    color: white;
+}
+
+.submit-btn {
+    background-color: grey;
+    color: white;
+    width: 30em;
+}
+
+.submit-btn:hover {
+    background-color: black;
+}
